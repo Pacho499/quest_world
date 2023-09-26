@@ -1,5 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
-
+import castle from "../images/dices.jpg";
+import NavBar from "~/components/navbar";
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
@@ -9,8 +10,9 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1 className="text-red-700">Welcome to Remix</h1>
+    <div>
+      <NavBar />
+      <h1 className="">Welcome to Remix</h1>
       <ul>
         <li>
           <a
@@ -36,6 +38,7 @@ export default function Index() {
           </a>
         </li>
       </ul>
+      <img src={castle} alt="" />
     </div>
   );
 }
