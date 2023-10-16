@@ -24,6 +24,9 @@ export default {
         Mh3: ["1rem", "1.625rem"],
         Mp: ["1rem", "1.625rem"],
       },
+      fontFamily: {
+        serif: ["PT Serif", "serif"],
+      },
     },
   },
   plugins: [],
