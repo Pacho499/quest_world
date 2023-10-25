@@ -10,3 +10,17 @@
     color: #aa0c10;
   }
 }
+
+.castleBG {
+  background-image: url("./images/castle.jpg");
+  background-repeat: none;
+  background-size: cover;
+  background-position-y: center;
+}
+
+.diceBG {
+  background-image: url("./images/dices.jpg");
+  background-repeat: none;
+  background-size: cover;
+  background-position-y: center;
+}
