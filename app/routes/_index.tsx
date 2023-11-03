@@ -1,6 +1,10 @@
-import type { MetaFunction } from "@remix-run/node";
 import NavBar from "~/components/navbar";
 import Button from "~/components/button";
+import type { MetaFunction } from "@remix-run/node";
+import { type LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { createBrowserClient } from "@supabase/ssr";
+import { useEffect } from "react";
+
 export const meta: MetaFunction = () => {
   return [
     { title: "New Remix App" },
@@ -8,7 +12,27 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export async function loader({}: LoaderFunctionArgs) {
+  return {
+    env: {
+      SUPABASE_URL: process.env.SUPABASE_URL!,
+      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY!,
+    },
+  };
+}
+
 export default function Index() {
+  const { env } = useLoaderData<typeof loader>();
+
+  const supabase = createBrowserClient(env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await supabase.auth.getUser();
+      console.log(user);
+    };
+
+    fetchUser();
+  }, [supabase]);
   return (
     <div>
       <NavBar />
