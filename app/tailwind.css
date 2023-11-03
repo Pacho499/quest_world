@@ -24,3 +24,9 @@
   background-size: cover;
   background-position-y: center;
 }
+
+.authBG {
+  background-image: url("./images/dicesLoign.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

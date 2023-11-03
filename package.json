@@ -19,6 +19,8 @@
     "@remix-run/node": "^2.0.1",
     "@remix-run/react": "^2.0.1",
     "@remix-run/serve": "^2.0.1",
+    "@supabase/auth-ui-react": "^0.4.6",
+    "@supabase/auth-ui-shared": "^0.1.8",
     "@supabase/ssr": "^0.0.5",
     "@supabase/supabase-js": "^2.38.4",
     "isbot": "^3.6.8",

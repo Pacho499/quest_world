@@ -1,7 +1,7 @@
 import NavBar from "~/components/navbar";
 import Button from "~/components/button";
 import type { MetaFunction } from "@remix-run/node";
-import { type LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import { useEffect } from "react";
 
@@ -12,7 +12,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader({}: LoaderFunctionArgs) {
+export async function loader() {
   return {
     env: {
       SUPABASE_URL: process.env.SUPABASE_URL!,

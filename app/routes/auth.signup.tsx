@@ -1,7 +1,7 @@
-import { Form } from "@remix-run/react";
+import { json } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
 import { createServerClient, parse, serialize } from "@supabase/ssr";
 import { redirect, type ActionFunctionArgs } from "react-router-dom";
-import { signup } from "~/utils/auth/signup";
 
 export async function action({ request }: ActionFunctionArgs) {
   const cookies = parse(request.headers.get("Cookie") ?? "");
@@ -26,21 +26,21 @@ export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
-  // try {
-  //   signup(email, password, supabase);
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  const name = formData.get("name") as string;
 
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: "/",
+      data: {
+        name: name,
+      },
     },
   });
 
-  console.log("data", data);
+  if (error) {
+    return json({ message: error });
+  }
 
   return redirect("/", {
     headers,
@@ -48,12 +48,18 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function SignUp() {
+  const actionData = useActionData<typeof action>();
+  console.log(actionData);
   return (
     <div>
       <Form method="POST">
         <div>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" />
+        </div>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input type="text" name="name" />
         </div>
         <div>
           <label htmlFor="Password">Password</label>
