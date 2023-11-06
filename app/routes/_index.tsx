@@ -1,16 +1,9 @@
 import NavBar from "~/components/navbar";
 import Button from "~/components/button";
-import type { MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import { useEffect } from "react";
-
-export const meta: MetaFunction = () => {
-  return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
-  ];
-};
+import { Link } from "react-router-dom";
 
 export async function loader() {
   return {
@@ -83,9 +76,12 @@ export default function Index() {
               Join us today and let your adventures begin!
             </p>
           </div>
-          <div className="md:col-start-3 mx-5 md:mx-0 col-span-2 bg-primary p-1 text-center">
+          <Link
+            to="/auth"
+            className="md:col-start-3 mx-5 md:mx-0 col-span-2 bg-primary p-1 text-center hover:bg-special transition-colors"
+          >
             <Button text="Join Us" />
-          </div>
+          </Link>
         </div>
       </div>
     </div>
