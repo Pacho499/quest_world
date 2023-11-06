@@ -1,4 +1,4 @@
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -12,6 +12,13 @@ import stylesheet from "./tailwind.css";
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Quest World" },
+    { name: "description", content: "Welcome quest world!" },
+  ];
+};
 
 export default function App() {
   return (
