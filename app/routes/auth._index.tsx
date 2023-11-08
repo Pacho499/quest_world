@@ -1,11 +1,12 @@
 import { Form, useActionData } from "@remix-run/react";
 import { parse } from "@supabase/ssr";
 import { useEffect, useState } from "react";
-import { redirect, type ActionFunctionArgs } from "react-router-dom";
+import { redirect, type ActionFunctionArgs, Link } from "react-router-dom";
 import { createSupabaseServer } from "~/utils/supabase";
 import { signInPassword, signUp } from "~/utils/auth";
 import Input from "~/components/input";
 import NavBar from "~/components/navbar";
+import Button from "~/components/button";
 
 export async function action({ request }: ActionFunctionArgs) {
   const headers = new Headers();
@@ -24,7 +25,7 @@ export async function action({ request }: ActionFunctionArgs) {
   } else {
     error = await signUp(supabase, email, password, name);
   }
-  console.log("error on action", error);
+
   if (error) {
     return error;
   }
@@ -45,10 +46,11 @@ export default function SignUp() {
       setError("");
     }
   };
+
   useEffect(() => {
     setError(actionData?.message?.message);
   }, [actionData]);
-  console.log(error);
+
   return (
     <>
       <NavBar />
@@ -86,26 +88,32 @@ export default function SignUp() {
                 {error}
               </span>
             )}
-            <div className="bg-primary hover:bg-special text-white p-2 m-2 text-center mt-8 transition-colors">
-              <button
+            <div>
+              <Button
                 type="submit"
+                text={signUp ? "SignUp" : "Log In"}
                 name="_action"
                 value={signUp ? "signUp" : "login"}
-              >
-                {signUp ? "Sign Up" : "Log In"}
+              />
+            </div>
+            <div className="flex flex-col gap-2 text-center">
+              {signUp ? null : (
+                <Link
+                  className="underline underline-offset-2 hover:no-underline"
+                  to="/auth/resetPassword"
+                >
+                  Forgot your password?
+                </Link>
+              )}
+              <button onClick={handleAuth} type="button">
+                <span className="underline underline-offset-2 hover:no-underline">
+                  {signUp
+                    ? "Already have an account? sign in"
+                    : "Don't have an account? signup!"}
+                </span>
               </button>
             </div>
           </Form>
-          <div className="flex flex-col underline underline-offset-2 gap-2">
-            {signUp ? null : <span>Forgot your password?</span>}
-            <button onClick={handleAuth} type="button">
-              <span>
-                {signUp
-                  ? "Already have an account? sign in"
-                  : "Don't have an account? signup!"}
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </>

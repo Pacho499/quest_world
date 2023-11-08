@@ -1,5 +1,4 @@
 import NavBar from "~/components/navbar";
-import Button from "~/components/button";
 import { useLoaderData } from "@remix-run/react";
 import { createBrowserClient } from "@supabase/ssr";
 import { useEffect } from "react";
@@ -78,9 +77,9 @@ export default function Index() {
           </div>
           <Link
             to="/auth"
-            className="md:col-start-3 mx-5 md:mx-0 col-span-2 bg-primary p-1 text-center hover:bg-special transition-colors"
+            className="md:col-start-3 mx-5 md:mx-0 col-span-2 bg-primary p-1 mt-2 text-center hover:bg-special transition-colors text-white"
           >
-            <Button text="Join Us" />
+            join Us
           </Link>
         </div>
       </div>

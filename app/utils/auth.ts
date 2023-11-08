@@ -31,10 +31,22 @@ const signUp = async (
       },
     },
   });
-  console.log("error:", error);
   if (error) {
     return json({ message: error });
   }
   return null;
 };
-export { signInPassword, signUp };
+
+const sendPasswordResetEmail = async (
+  supabase: SupabaseClient,
+  email: string
+) => {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "http://localhost:3000/auth",
+  });
+  if (error) {
+    return json({ message: error });
+  }
+  return null;
+};
+export { signInPassword, signUp, sendPasswordResetEmail };
