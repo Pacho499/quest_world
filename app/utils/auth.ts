@@ -42,11 +42,21 @@ const sendPasswordResetEmail = async (
   email: string
 ) => {
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "http://localhost:3000/auth",
+    redirectTo: "http://localhost:3000/auth/changePassword",
   });
   if (error) {
     return json({ message: error });
   }
   return null;
 };
-export { signInPassword, signUp, sendPasswordResetEmail };
+
+const resetPassword = async (supabase: SupabaseClient, password: string) => {
+  const { error } = await supabase.auth.updateUser({ password: password });
+
+  if (error) {
+    return json({ message: error });
+  }
+
+  return null;
+};
+export { signInPassword, signUp, sendPasswordResetEmail, resetPassword };
